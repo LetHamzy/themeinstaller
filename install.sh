@@ -145,7 +145,7 @@ check_token() {
   echo -e "${BOLD}${YELLOW}MASUKKAN AKSES TOKEN: ${NC}"
   read -r USER_TOKEN
 
-  if [ "$USER_TOKEN" = "sanoofc" ]; then
+  if [ "$USER_TOKEN" = "hamzy" ]; then
     echo -e "${BOLD}${GREEN}AKSES BERHASIL${NC}}"
   else
     echo -e "${BOLD}${GREEN}Token yang anda masukkan salah.${NC}"
