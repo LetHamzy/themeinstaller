@@ -56,7 +56,7 @@ Script ini telah diuji dan berjalan optimal pada sistem operasi berikut:
 > **📞 Bantuan & Dukungan**<br>
 > Punya pertanyaan? Menemukan bug/eror? Jangan ragu untuk menghubungi saya. Gunakan script ini dengan bijak!
 
-- Github Profile: [SANO OFFICIAL](https://github.com/luxzdev)
+- Github Profile: [LUXZ OFFICIAL](https://github.com/luxzdev)
 - WhatsApp Channel: [KLIK DI SINI](https://wa.me/6283131164107)
 - Telegram Chat: [HUBUNGI ATMIN](https://t.me/luxzopicial)
 
