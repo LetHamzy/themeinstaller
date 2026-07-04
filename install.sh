@@ -10,10 +10,10 @@
 # Apa? Mau nyolong?? 😹😹
 # Apa? Mau nyolong?? 😹😹
 # ============================================================
-# SKRIP INI DIBUAT OLEH LUXZ OFFICIAL
-# TELEGRAM: @luxzopicial
+# SKRIP INI DIBUAT OLEH HAMZH OFFICIAL
+# TELEGRAM: @HamzyOfficial
 # DISARANKAN GAK USAH NYOLONG!
-# LEBIH BAIK LANGSUNG PAKE AJA, KALO EROR BIAR GW (LUXZ) YANG BENERINNYA, LU TINGGAL LAPOR AJA KE TELEGRAM.
+# LEBIH BAIK LANGSUNG PAKE AJA, KALO EROR BIAR GW (HAMZY) YANG BENERINNYA, LU TINGGAL LAPOR AJA KE TELEGRAM.
 # ============================================================
 
 # Reset
@@ -105,13 +105,13 @@ start_script() {
   echo -e "${BOLD}${BLUE}[+]                                                 [+]${NC}"
   echo -e "${BOLD}${BLUE}[+] =============================================== [+]${NC}"
   echo -e ""
-  echo -e "Script ini dibuat untuk mempermudah penginstalasian tema pterodactyl."
+  echo -e "Script ini dibuat untuk mempermudah penginstalasian thema pterodactyl."
   echo -e "Mengalami eror? Lapor ke admin agar diperbaiki."
   echo -e ""
-  echo -e "𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠: @luxzopicial"
+  echo -e "Telegram : @HamzyOfficial"
   sleep 2
 
-  print_info "Menginstall dan mengupdate jq..."
+  print_info "Menginstall dan mengupdate system..."
 
   export DEBIAN_FRONTEND=noninteractive
   export NEEDRESTART_MODE=a
@@ -126,9 +126,9 @@ start_script() {
   sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get install -y jq
 
   if [ $? -eq 0 ]; then
-    print_success "Install jq berhasil."
+    print_success "Instalisasi berhasil."
   else
-    print_error "Install jq gagal."
+    print_error "Instalilasi gagal."
     exit 1
   fi
   echo -e "                                                       "
@@ -963,9 +963,9 @@ while true; do
   echo -e "${BOLD}${CYAN} ,ggg'               'ggg.${NC}"
   echo -e "${BOLD}${CYAN}',gg       ,ggg.      'ggg:${NC}"
   echo -e "${BOLD}${CYAN}'ggg      ,gg'''  .    ggg${NC}     ${BOLD}${BLUE}Auto Installer Theme Pterodactyl${NC}"
-  echo -e "${BOLD}${CYAN}gggg      gg     ,    ggg${NC}      ${BOLD}${BLUE}By Sano Official${NC}"
+  echo -e "${BOLD}${CYAN}gggg      gg     ,    ggg${NC}      ${BOLD}${BLUE}By Hamzy Official${NC}"
   echo -e "${BOLD}${CYAN}ggg:     gg.     -   ,ggg${NC}     ${BOLD}${GREEN}----------------------------------${NC}"
-  echo -e "${BOLD}${CYAN} ggg:     ggg._    _,ggg${NC}       ${BOLD}${BLUE}Telegram : @luxzopicial${NC}"
+  echo -e "${BOLD}${CYAN} ggg:     ggg._    _,ggg${NC}       ${BOLD}${BLUE}Telegram : @HamzyOfficial${NC}"
   echo -e "${BOLD}${CYAN} ggg.    '.'''ggggggp${NC}"
   echo -e "${BOLD}${CYAN}  'ggg    '-.__${NC}"
   echo -e "${BOLD}${CYAN}    ggg${NC}"
@@ -978,10 +978,10 @@ while true; do
   echo -e "${BOLD}  1. Install Themes${NC}"
   echo -e "${BOLD}  2. Install Blueprint${NC}"
   echo -e "${BOLD}  3. Install Fitur Auto Suspend${NC}"
-  echo -e "${BOLD}  4. Reset Panel (menghapus semua modifikasi panel seperti tema kustom atau tools lainnya)${NC}"
+  echo -e "${BOLD}  4. Reset Panel${NC}"
   echo -e "${BOLD}  5. Uninstall Panel${NC}"
   echo -e "${BOLD}  6. Start Wings${NC}"
-  echo -e "${BOLD}  7. Create Node & Location (auto node ijo)${NC}"
+  echo -e "${BOLD}  7. Create Node & Locations${NC}"
   echo -e "${BOLD}  8. Hack Back Panel${NC}"
   echo -e "${BOLD}  9. Ubah Password VPS${NC}"
   echo -e "${BOLD}  x. Exit${NC}"
