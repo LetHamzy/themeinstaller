@@ -130,9 +130,9 @@ check_token() {
   read -r USER_TOKEN
 
   if [ "$USER_TOKEN" = "hamzy" ]; then
-    echo -e "${BOLD}${GREEN}AKSES BERHASIL${NC}}"
+    echo -e "${BOLD}${GREEN}AKSES BERHASIL${NC}"
   else
-    echo -e "${BOLD}${GREEN}Token yang anda masukkan salah.${NC}"
+    echo -e "${BOLD}${RED}Token yang anda masukkan salah.${NC}"
     exit 1
   fi
   clear
@@ -193,17 +193,17 @@ install_theme() {
   echo -n -e "${BOLD}Anda memilih tema '$THEME_NAME'. Lanjutkan? (y/n): ${NC}"
   read confirmation
   if [[ "$confirmation" != [yY] ]]; then echo -e "${BOLD}Instalasi dibatalkan.${NC}"; return; fi
-  
+
   set -e
   export DEBIAN_FRONTEND=noninteractive
   export NEEDRESTART_MODE=a
-  
+
   TEMP_DIR=$(mktemp -d)
   trap 'rm -rf -- "$TEMP_DIR"' EXIT
   cd "$TEMP_DIR"
-  
+
   print_info "Memulai instalasi tema $THEME_NAME..."
-  
+
   if [ "$SELECT_THEME" -eq 3 ]; then # Khusus Enigma
     echo -n -e "${BOLD}Masukkan link whatsapp (diawali https://): ${NC}"; read LINK_WA
     echo -n -e "${BOLD}Masukkan link channel whatsapp (diawali https://): ${NC}"; read LINK_CHANNEL
@@ -226,7 +226,7 @@ install_theme() {
   else
     unzip -oq "$THEME_ZIP_FILE" || true
   fi
-  
+
   rm -f "$THEME_ZIP_FILE"
 
   if [ "$SELECT_THEME" -ge 10 ] && [ "$SELECT_THEME" -le 12 ]; then
@@ -236,7 +236,7 @@ install_theme() {
     THEME_NAME_LOWER=$(echo "$THEME_NAME" | tr '[:upper:]' '[:lower:]')
     BLUEPRINT_FILE="${THEME_NAME_LOWER}.blueprint"
     sudo mv "$BLUEPRINT_FILE" /var/www/pterodactyl/
-    
+
     print_info "[4/4] Menginstall via Blueprint..."
     cd /var/www/pterodactyl
     sudo blueprint -install "$THEME_NAME_LOWER"
@@ -258,7 +258,7 @@ install_theme() {
 
     print_info "Memeriksa versi Node.js..."
     CURRENT_NODE_VER=$(node -v 2>/dev/null | cut -d'.' -f1 | sed 's/v//')
-    
+
     if [[ "$CURRENT_NODE_VER" == "22" ]]; then
       print_success "Node.js v22 sudah terinstall. Instalasi ulang dilewati."
     else
@@ -282,7 +282,7 @@ install_theme() {
 
     hash -r
     sudo npm i -g yarn
-    
+
     print_info "Menginstal dependensi build..."
     yarn add cross-env react-feather
     yarn install
@@ -302,7 +302,7 @@ install_theme() {
     yarn build:production
     php artisan view:clear
     php artisan optimize:clear
-    
+
     print_success "Tema '$THEME_NAME' berhasil diinstall."
   fi
 
@@ -327,10 +327,10 @@ install_timpa() {
   set -e
   export DEBIAN_FRONTEND=noninteractive
   export NEEDRESTART_MODE=a
-  
+
   TEMP_DIR=$(mktemp -d)
   trap 'rm -rf -- "$TEMP_DIR"' EXIT
-  
+
   print_info "Memulai instalasi tema $TARGET_NAME..."
 
   if [ -f /etc/needrestart/needrestart.conf ]; then
@@ -342,17 +342,17 @@ install_timpa() {
   print_info "[1/4] Mengunduh file panel..."
   cd "$TEMP_DIR"
   wget -q -O panel.tar.gz "$TARGET_URL"
-  
+
   print_info "[2/4] Mempersiapkan direktori & Backup Config..."
-  
+
   if [ ! -d "/var/www/pterodactyl" ]; then
     print_error "Direktori Pterodactyl tidak ditemukan."
     return 1
   fi
-  
+
   cd /var/www/pterodactyl
   php artisan down || true
-  
+
   if [ -f ".env" ]; then 
     cp .env /tmp/.env.backup
   fi
@@ -362,11 +362,11 @@ install_timpa() {
 
   print_info "[3/4] Mengekstrak file & Mengembalikan konfigurasi..."
   tar -xzf "$TEMP_DIR/panel.tar.gz" -C /var/www/pterodactyl/
-  
+
   if [ -f "/tmp/.env.backup" ]; then 
     mv /tmp/.env.backup .env
   fi
-  
+
   sudo chmod -R 755 storage/* bootstrap/cache/
   sudo chown -R www-data:www-data /var/www/pterodactyl
 
@@ -403,7 +403,7 @@ uninstall_theme() {
   while true; do
     echo -n -e "${BOLD}Apakah Anda benar-benar yakin ingin melanjutkan? (y/n): ${NC}"
     read yn
-    
+
     case $yn in
       [Yy]*)
         set -e
@@ -421,10 +421,10 @@ uninstall_theme() {
 
         echo -e "${BOLD}   - Menghapus semua file panel lama...${NC}"
         sudo find . -mindepth 1 -delete
-        
+
         echo -e "${BOLD}   - Mengunduh panel original terbaru...${NC}"
         curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | sudo tar -xzf - -C /var/www/pterodactyl
-    
+
         echo -e "${BOLD}   - Mengembalikan file .env...${NC}"
         if [ -f "$TEMP_BACKUP/.env" ]; then sudo mv "$TEMP_BACKUP"/.env .; fi
         rm -rf "$TEMP_BACKUP"
@@ -541,7 +541,7 @@ uninstall_panel() {
   print_info "Merestart layanan sistem..."
   systemctl restart nginx > /dev/null 2>&1 || true
   systemctl restart apache2 > /dev/null 2>&1 || true
-  
+
   echo -e "                                                       "
   echo -e "${BOLD}${GREEN}[+] =============================================== [+]${NC}"
   echo -e "${BOLD}${GREEN}[+]             UNINSTALL PANEL SUKSES              [+]${NC}"
@@ -707,7 +707,7 @@ install_blueprint() {
   echo -e "${BOLD}${GREEN}[+]                INSTALL BLUEPRINT                [+]${NC}"
   echo -e "${BOLD}${GREEN}[+] =============================================== [+]${NC}"
   echo -e "                                                       "
-  
+
   echo -n -e "${BOLD}Apakah anda yakin ingin melanjutkannya? (y/n): ${NC}"
   read confirmation
   if [[ "$confirmation" != [yY] ]]; then
@@ -737,7 +737,7 @@ install_blueprint() {
 
   print_info "Memeriksa versi Node.js..."
   CURRENT_NODE_VER=$(node -v 2>/dev/null | cut -d'.' -f1 | sed 's/v//')
-  
+
   if [[ "$CURRENT_NODE_VER" == "22" ]]; then
     print_success "Node.js v22 sudah terinstall. Instalasi ulang dilewati."
   else
@@ -788,7 +788,7 @@ install_auto_suspend() {
   set -e
   export DEBIAN_FRONTEND=noninteractive
   export NEEDRESTART_MODE=a
-  
+
   echo " "
   log_info "[+] =============================================== [+]"
   log_info "[+]            INSTALL FITUR AUTO SUSPEND           [+]"
@@ -810,7 +810,7 @@ install_auto_suspend() {
 
   print_info "Memeriksa versi Node.js..."
   CURRENT_NODE_VER=$(node -v 2>/dev/null | cut -d'.' -f1 | sed 's/v//')
-  
+
   if [[ "$CURRENT_NODE_VER" == "22" ]]; then
     print_success "Node.js v22 sudah terinstall. Instalasi ulang dilewati."
   else
@@ -831,26 +831,26 @@ install_auto_suspend() {
     sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get update
     sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get install -y nodejs
   fi
-  
+
   hash -r
   sudo npm i -g yarn
-  
+
   TEMP_DIR=$(mktemp -d)
   trap 'rm -rf -- "$TEMP_DIR"' EXIT
   cd "$TEMP_DIR"
-  
+
   print_info "Mengunduh file autosuspend.zip..."
   wget -q https://github.com/LetHamzy/themeinstaller/raw/main/autosuspend.zip
-  
+
   print_info "Mengekstrak file..."
   unzip -oq autosuspend.zip || true
-  
+
   print_info "Menyalin file migrasi database..."
   sudo cp -rf pterodactyl/* /var/www/pterodactyl/
-  
+
   print_info "Menerapkan modifikasi sistem..."
   cd /var/www/pterodactyl
-  
+
   sed -i "/use Ramsey\\\\Uuid\\\\Uuid;/a use Pterodactyl\\\\Models\\\\Server;" app/Console/Kernel.php
   if ! grep -q "Server::where('exp_date'" app/Console/Kernel.php; then
     sed -i "/\\\$schedule->command(CleanServiceBackupFilesCommand::class)->daily();/a \\
@@ -869,7 +869,7 @@ install_auto_suspend() {
              } \\
          })->dailyAt('23:55');" app/Console/Kernel.php
   fi
-  
+
   sed -i "/'owner_id', 'external_id', 'name', 'description',/a \\\t\t\t'exp_date'," app/Http/Controllers/Admin/ServersController.php
   sed -i "/'oom_disabled' => 'sometimes|boolean',/a \\            'exp_date' => \$rules['exp_date']," app/Http/Requests/Api/Application/Servers/StoreServerRequest.php
   sed -i "/'oom_disabled' => array_get(\$data, 'oom_disabled'),/a \\            'exp_date' => array_get(\$data, 'exp_date')," app/Http/Requests/Api/Application/Servers/StoreServerRequest.php
@@ -877,20 +877,20 @@ install_auto_suspend() {
   sed -i "/'description' => Arr::get(\$data, 'description') ?? '',/a \                'exp_date' => Arr::get(\$data, 'exp_date') ?? null," app/Services/Servers/DetailsModificationService.php
   sed -i "/'backup_limit' => Arr::get(\$data, 'backup_limit') ?? 0,/a \\                'exp_date' => Arr::get(\$data, 'exp_date') ?? null," app/Services/Servers/ServerCreationService.php
   sed -i "/'name' => \$server->name,/a \\                'exp_date' => \$server->exp_date," app/Transformers/Api/Client/ServerTransformer.php
-  
+
   if [ -f "resources/scripts/api/server/getServer.ts" ]; then
     sed -i "/name: string;/a \\        expDate: string;" resources/scripts/api/server/getServer.ts
     sed -i "/name: data.name,/a \\        expDate: data.exp_date," resources/scripts/api/server/getServer.ts
   fi
-  
+
   if [ -f "resources/scripts/components/server/console/ServerDetailsBlock.tsx" ]; then
     sed -i "/faMicrochip,/a \\        faCalendarDay," resources/scripts/components/server/console/ServerDetailsBlock.tsx
     sed -i "/const limits = ServerContext.useStoreState((state) => state.server.data!.limits);/a \\        const expDate = ServerContext.useStoreState((state) => state.server.data!.expDate);" resources/scripts/components/server/console/ServerDetailsBlock.tsx
-    
+
     sed -i -e '/<StatBlock icon={faMicrochip} title={'\''CPU Load'\''} color={getBackgroundColor(stats.cpu, limits.cpu)}>/{x;p;x;}' \
            -e '\%<StatBlock icon={faMicrochip} title={'\''CPU Load'\''} color={getBackgroundColor(stats.cpu, limits.cpu)}>%'"{s%^%\t\t\t<StatBlock icon={faCalendarDay} title={'Expiration Date'}>\n\t\t\t\t{expDate}\n\t\t\t</StatBlock>\n%;" resources/scripts/components/server/console/ServerDetailsBlock.tsx
   fi
-  
+
   TARGET_BLADE="resources/views/admin/servers/view/details.blade.php"
   if [ -f "$TARGET_BLADE" ] && ! grep -q "exp_date" "$TARGET_BLADE"; then
     sed -i "/<p class=\"text-muted small\">Character limits: <code>a-zA-Z0-9_-<\/code> and <code>\[Space\]<\/code>.<\/p>/,/<\/div>/ {
@@ -899,7 +899,7 @@ install_auto_suspend() {
       }
     }" "$TARGET_BLADE"
   fi
-  
+
   TARGET_NEW="resources/views/admin/servers/new.blade.php"
   if [ -f "$TARGET_NEW" ] && ! grep -q "exp_date" "$TARGET_NEW"; then
     sed -i "/<p class=\"small text-muted no-margin\">Email address of the Server Owner.<\/p>/,/<\/div>/ {
@@ -908,25 +908,25 @@ install_auto_suspend() {
       }
     }" "$TARGET_NEW"
   fi
-  
+
   print_info "Menjalankan migrasi database..."
   php artisan migrate --force
-  
+
   print_info "Menginstal dependensi build..."
   yarn add cross-env
   yarn install
-  
+
   print_info "Membangun ulang aset panel..."
   export NODE_OPTIONS=--openssl-legacy-provider
   yarn run build:production
-  
+
   print_info "Membersihkan cache..."
   php artisan optimize:clear
   php artisan view:clear
   php artisan cache:clear
   php artisan route:clear
   chown -R www-data:www-data /var/www/pterodactyl/*
-  
+
   echo " "
   log_success "[+] =============================================== [+]"
   log_success "[+]      FITUR AUTO SUSPEND BERHASIL DIINSTALL      [+]"
