@@ -1,20 +1,4 @@
 #!/bin/bash
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# Apa? Mau nyolong?? 😹😹
-# ============================================================
-# SKRIP INI DIBUAT OLEH HAMZH OFFICIAL
-# TELEGRAM: @HamzyOfficial
-# DISARANKAN GAK USAH NYOLONG!
-# LEBIH BAIK LANGSUNG PAKE AJA, KALO EROR BIAR GW (HAMZY) YANG BENERINNYA, LU TINGGAL LAPOR AJA KE TELEGRAM.
-# ============================================================
 
 # Reset
 NC='\033[0m'
@@ -596,7 +580,7 @@ create_node() {
   bash <(curl -s https://raw.githubusercontent.com/LetHamzy/themeinstaller/main/createnode.sh)
 
   if [ $? -ne 0 ]; then
-    print_error "🚨 TERJADI ERROR saat menjalankan skrip 'createnode.sh'."
+    print_error "🚨 TERJADI ERROR saat menjalankan script 'createnode.sh'."
     return 1
   fi
 
@@ -956,17 +940,25 @@ install_auto_suspend() {
 start_script
 
 while true; do
-  echo -e "\n  "
-  echo -e "${BOLD}${CYAN}          _____${NC}"
-  echo -e "${BOLD}${CYAN}         /     \\${NC}"
-  echo -e "${BOLD}${CYAN}        | O   O |${NC}"
-  echo -e "${BOLD}${CYAN}        |   >   |${NC}  ${BOLD}${BLUE}Auto Installer Theme Pterodactyl${NC}"
-  echo -e "${BOLD}${CYAN}        |  \\_/  |${NC}  ${BOLD}${BLUE}By Hamzy Official${NC}"
-  echo -e "${BOLD}${CYAN}         \\_____/${NC}   ${BOLD}${GREEN}----------------------------------${NC}"
-  echo -e "${BOLD}${CYAN}        /|     |\\${NC}  ${BOLD}${BLUE}Telegram : @HamzyOfficial${NC}"
-  echo -e "${BOLD}${CYAN}       / |     | \\${NC}"
-  echo -e "${BOLD}${CYAN}      /  |     |  \\${NC}"
-  echo -e "  "
+  clear
+  echo -e "                                                                     "
+  echo -e "${RED}        _,gggggggggg.                                     ${NC}"
+  echo -e "${RED}    ,ggggggggggggggggg.                                   ${NC}"
+  echo -e "${RED}  ,ggggg        gggggggg.                                 ${NC}"
+  echo -e "${RED} ,ggg'                 'ggg.                                ${NC}"
+  echo -e "${RED}',gg       ,ggg.        'ggg:                               ${NC}"
+  echo -e "${RED}'ggg      ,gg'''  .       ggg       Auto Installer HamzyOfficial   ${NC}"
+  echo -e "${RED}gggg      gg     ,     ggg   ____________________________  ${NC}"
+  echo -e "${RED}ggg:     gg.     -     ,ggg       • Telegram : HamzyOfficial      ${NC}"
+  echo -e "${RED} ggg:     ggg._     _,ggg        • Creadit  : HamzyOfficial  ${NC}"
+  echo -e "${RED} ggg.    '.'''ggggggp           • Support By HamzyOfficial  ${NC}"
+  echo -e "${RED}  'ggg    '-.__                                           ${NC}"
+  echo -e "${RED}    ggg                                                   ${NC}"
+  echo -e "${RED}      ggg                                                 ${NC}"
+  echo -e "${RED}        ggg.                                              ${NC}"
+  echo -e "${RED}          ggg.                                            ${NC}"
+  echo -e "${RED}             b.                                           ${NC}"
+  echo -e "                                                                     "
   echo -e "${BOLD} BERIKUT ADALAH LIST FITUR:${NC}"
   echo -e "${BOLD}  1. Install Themes${NC}"
   echo -e "${BOLD}  2. Install Blueprint${NC}"
