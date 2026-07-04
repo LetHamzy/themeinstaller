@@ -896,7 +896,7 @@ install_auto_suspend() {
     sed -i "/<p class=\"text-muted small\">Character limits: <code>a-zA-Z0-9_-<\/code> and <code>\[Space\]<\/code>.<\/p>/,/<\/div>/ {
       /<\/div>/ {
       s|<\/div>|&\n                    <div class=\"form-group\">\n                        <label for=\"exp_date\" class=\"control-label\">Expiration date<\/label>\n                        <input type=\"date\" class=\"form-control\" id=\"exp_date\" name=\"exp_date\" value=\"{{ \$server->exp_date }}\">\n                    <\/div>|;" "$TARGET_BLADE"
-      }
+      
     }" "$TARGET_BLADE"
   fi
 
