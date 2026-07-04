@@ -56,8 +56,8 @@ Script ini telah diuji dan berjalan optimal pada sistem operasi berikut:
 > **📞 Bantuan & Dukungan**<br>
 > Punya pertanyaan? Menemukan bug/eror? Jangan ragu untuk menghubungi saya. Gunakan script ini dengan bijak!
 
-- Github Profile: [LUXZ OFFICIAL](https://github.com/luxzdev)
-- WhatsApp Channel: [KLIK DI SINI](https://wa.me/6283131164107)
-- Telegram Chat: [HUBUNGI ATMIN](https://t.me/luxzopicial)
+- Github Profile: [HAMZY OFFICIAL](https://github.com/LetHamzy)
+- WhatsApp Channel: [KLIK DI SINI](https://wa.me/6283898077041)
+- Telegram Chat: [HUBUNGI ATMIN](https://t.me/HamzyOfficial)
 
-<p align="center">Made with ❤️ by Luxz Official</p>
+<p align="center">Made with ❤️ By HamzyOfficial</p>
