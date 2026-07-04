@@ -1,10 +1,21 @@
 #!/bin/bash
 
-# ============================================================
-# SKRIP INI DI-REMAKE OLEH LUXZ OFFICIAL (TELEGRAM: @luxzopicial)
-# DILARANG UNTUK MEMPERJUALBELIKAN SKRIP INI, APALAGI MEMBAGIKANNYA SECARA GRATIS!
-# GAK USAH NGEYEL! NGEYEL? MATI AJA LU, HIDUP LU GAK GUNA, KERJAANNYA CUMA MALING SC, JUAL/SHARE SC HASIL MALING
-# ============================================================
+#    ██╗   ██╗   █████╗  ███╗    ███╗ ███████╗  ██╗   ██╗
+#    ██║   ██║ ██╔══██╗ ████╗ ████║ ╚══███╔╝ ╚██╗ ██╔╝
+#    ███████║ ███████║ ██╔████╔██║   ███╔╝    ╚████╔╝ 
+#    ██╔══██║ ██╔══██║ ██║╚██╔╝██║  ███╔╝      ╚██╔╝  
+#    ██║   ██║ ██║   ██║ ██║ ╚═╝  ██║ ███████╗    ██║   
+#   ╚═╝   ╚═╝ ╚═╝   ╚═╝ ╚═╝        ╚═╝ ╚══════╝    ╚═╝   
+
+   # --- > Author : HamzyOfficial
+   # --- > Telegram : https://t.me/HamzyOfficial
+
+#   -- [ ! ] DILARANG KERAS MENGHAPUS CREDITS
+#   -- [ ! ] DILARANG MEMPERJUALBELIKAN SCRIPT INI
+
+#   Ada kendala? Hubungi : t.me/HamzyOfficial
+#   Support hanya untuk pembeli resmi!
+
 
 echo "Masukkan nama location (contoh: SGP): "
 read location_name
@@ -12,7 +23,7 @@ echo "Masukkan id location (contoh: 1): "
 read locid
 echo "Masukkan nama node (contoh: Nodes): "
 read node_name
-echo "Masukkan deskripsi (contoh: Panel by Sano Official): "
+echo "Masukkan deskripsi (contoh: Hamzy Official The Kings): "
 read description
 echo "Masukkan domain node (contoh: nodepanel.example.com): "
 read domain
