@@ -872,18 +872,18 @@ install_auto_suspend() {
     sed -i "/\\\$schedule->command(CleanServiceBackupFilesCommand::class)->daily();/a \\
     \\
         \$schedule->call(function () { \\
-            \$servers = Server::where('exp_date', '<', now())->get(); \\
-            \$suspensionService = \\\\App::make('Pterodactyl\\\\Services\\\\Servers\\\\SuspensionService'); \\
-            foreach (\$servers as \$server) { \\
-                if(\$server->status != 'suspended') { \\
-                    if(\$server->status != 'installing') { \\
-                        if(\$server->exp_date != null) { \\
-                            \$suspensionService->toggle(\$server, 'suspend'); \\
-                        } \\
-                    } \\
-                } \\
-            } \\
-        })->dailyAt('23:55');" app/Console/Kernel.php
+             \$servers = Server::where('exp_date', '<', now())->get(); \\
+             \$suspensionService = \\\\App::make('Pterodactyl\\\\Services\\\\Servers\\\\SuspensionService'); \\
+             foreach (\$servers as \$server) { \\
+                 if(\$server->status != 'suspended') { \\
+                     if(\$server->status != 'installing') { \\
+                         if(\$server->exp_date != null) { \\
+                             \$suspensionService->toggle(\$server, 'suspend'); \\
+                         } \\
+                     } \\
+                 } \\
+             } \\
+         })->dailyAt('23:55');" app/Console/Kernel.php
   fi
   
   sed -i "/'owner_id', 'external_id', 'name', 'description',/a \\\t\t\t'exp_date'," app/Http/Controllers/Admin/ServersController.php
@@ -904,14 +904,14 @@ install_auto_suspend() {
     sed -i "/const limits = ServerContext.useStoreState((state) => state.server.data!.limits);/a \\        const expDate = ServerContext.useStoreState((state) => state.server.data!.expDate);" resources/scripts/components/server/console/ServerDetailsBlock.tsx
     
     sed -i -e '/<StatBlock icon={faMicrochip} title={'\''CPU Load'\''} color={getBackgroundColor(stats.cpu, limits.cpu)}>/{x;p;x;}' \
-           -e '\%<StatBlock icon={faMicrochip} title={'\''CPU Load'\''} color={getBackgroundColor(stats.cpu, limits.cpu)}>%'"{s%^%\t\t\t<StatBlock icon={faCalendarDay} title={'Expiration Date'}>\n\t\t\t\t{expDate ? expDate : 'Unlimited'}\n\t\t\t<\/StatBlock>\n%}" resources/scripts/components/server/console/ServerDetailsBlock.tsx
+           -e '\%<StatBlock icon={faMicrochip} title={'\''CPU Load'\''} color={getBackgroundColor(stats.cpu, limits.cpu)}>%'"{s%^%\t\t\t<StatBlock icon={faCalendarDay} title={'Expiration Date'}>\n\t\t\t\t{expDate}\n\t\t\t</StatBlock>\n%;" resources/scripts/components/server/console/ServerDetailsBlock.tsx
   fi
   
   TARGET_BLADE="resources/views/admin/servers/view/details.blade.php"
   if [ -f "$TARGET_BLADE" ] && ! grep -q "exp_date" "$TARGET_BLADE"; then
     sed -i "/<p class=\"text-muted small\">Character limits: <code>a-zA-Z0-9_-<\/code> and <code>\[Space\]<\/code>.<\/p>/,/<\/div>/ {
       /<\/div>/ {
-      s|<\/div>|&\n                    <div class=\"form-group\">\n                        <label for=\"exp_date\" class=\"control-label\">Expiration date<\/label>\n                        <input type=\"date\" name=\"exp_date\" value=\"{{ old('exp_date', \$server->exp_date) }}\" class=\"form-control\" \/>\n                        <p class=\"text-muted small\">Server akan kadaluarsa (suspend) di akhir hari pada tanggal yang dipilih (kosongkan jika ingin server permanen)<\/p>\n                    <\/div>|
+      s|<\/div>|&\n                    <div class=\"form-group\">\n                        <label for=\"exp_date\" class=\"control-label\">Expiration date<\/label>\n                        <input type=\"date\" class=\"form-control\" id=\"exp_date\" name=\"exp_date\" value=\"{{ \$server->exp_date }}\">\n                    <\/div>|;" "$TARGET_BLADE"
       }
     }" "$TARGET_BLADE"
   fi
@@ -920,7 +920,7 @@ install_auto_suspend() {
   if [ -f "$TARGET_NEW" ] && ! grep -q "exp_date" "$TARGET_NEW"; then
     sed -i "/<p class=\"small text-muted no-margin\">Email address of the Server Owner.<\/p>/,/<\/div>/ {
       /<\/div>/ {
-      s|<\/div>|&\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<label for=\"exp_date\">Expiration date<\/label>\n\t\t\t\t\t\t\t<input type=\"date\" class=\"form-control\" id=\"expiration\" name=\"exp_date\" value=\"{{ old('exp_date') }}\" placeholder=\"Expiration Date\">\n\t\t\t\t\t\t\t<p class=\"small text-muted no-margin\">Server akan kadaluarsa (suspend) di akhir hari pada tanggal yang dipilih (kosongkan jika ingin server permanen)<\/p>\n\t\t\t\t\t\t<\/div>|
+      s|<\/div>|&\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<label for=\"exp_date\">Expiration date<\/label>\n\t\t\t\t\t\t\t<input type=\"date\" class=\"form-control\" id=\"expiration\" name=\"exp_date\">\n\t\t\t\t\t\t<\/div>|;" "$TARGET_NEW"
       }
     }" "$TARGET_NEW"
   fi
@@ -957,22 +957,15 @@ start_script
 
 while true; do
   echo -e "\n  "
-  echo -e "${BOLD}${CYAN}        _,gggggggggg.${NC}"
-  echo -e "${BOLD}${CYAN}    ,ggggggggggggggggg.${NC}"
-  echo -e "${BOLD}${CYAN}  ,ggggg        gggggggg.${NC}"
-  echo -e "${BOLD}${CYAN} ,ggg'               'ggg.${NC}"
-  echo -e "${BOLD}${CYAN}',gg       ,ggg.      'ggg:${NC}"
-  echo -e "${BOLD}${CYAN}'ggg      ,gg'''  .    ggg${NC}     ${BOLD}${BLUE}Auto Installer Theme Pterodactyl${NC}"
-  echo -e "${BOLD}${CYAN}gggg      gg     ,    ggg${NC}      ${BOLD}${BLUE}By Hamzy Official${NC}"
-  echo -e "${BOLD}${CYAN}ggg:     gg.     -   ,ggg${NC}     ${BOLD}${GREEN}----------------------------------${NC}"
-  echo -e "${BOLD}${CYAN} ggg:     ggg._    _,ggg${NC}       ${BOLD}${BLUE}Telegram : @HamzyOfficial${NC}"
-  echo -e "${BOLD}${CYAN} ggg.    '.'''ggggggp${NC}"
-  echo -e "${BOLD}${CYAN}  'ggg    '-.__${NC}"
-  echo -e "${BOLD}${CYAN}    ggg${NC}"
-  echo -e "${BOLD}${CYAN}      ggg${NC}"
-  echo -e "${BOLD}${CYAN}        ggg.${NC}"
-  echo -e "${BOLD}${CYAN}          ggg.${NC}"
-  echo -e "${BOLD}${CYAN}             b.${NC}"
+  echo -e "${BOLD}${CYAN}          _____${NC}"
+  echo -e "${BOLD}${CYAN}         /     \\${NC}"
+  echo -e "${BOLD}${CYAN}        | O   O |${NC}"
+  echo -e "${BOLD}${CYAN}        |   >   |${NC}  ${BOLD}${BLUE}Auto Installer Theme Pterodactyl${NC}"
+  echo -e "${BOLD}${CYAN}        |  \\_/  |${NC}  ${BOLD}${BLUE}By Hamzy Official${NC}"
+  echo -e "${BOLD}${CYAN}         \\_____/${NC}   ${BOLD}${GREEN}----------------------------------${NC}"
+  echo -e "${BOLD}${CYAN}        /|     |\\${NC}  ${BOLD}${BLUE}Telegram : @HamzyOfficial${NC}"
+  echo -e "${BOLD}${CYAN}       / |     | \\${NC}"
+  echo -e "${BOLD}${CYAN}      /  |     |  \\${NC}"
   echo -e "  "
   echo -e "${BOLD} BERIKUT ADALAH LIST FITUR:${NC}"
   echo -e "${BOLD}  1. Install Themes${NC}"
